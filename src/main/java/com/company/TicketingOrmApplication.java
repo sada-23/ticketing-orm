@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TicketingOrmApplication {
@@ -14,9 +16,15 @@ public class TicketingOrmApplication {
 
 
 
-    @Bean // To be able to use org.modelmapper classes methods.
+    @Bean // To be able to use org.modelMapper classes methods.
     public ModelMapper mapper(){
         return new ModelMapper();
+    }
+
+
+    @Bean // To override the spring encoded password we use PasswordEncoder implementation class
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }
