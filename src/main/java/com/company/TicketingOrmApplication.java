@@ -15,14 +15,19 @@ public class TicketingOrmApplication {
     }
 
 
-
     @Bean // To be able to use org.modelMapper classes methods.
     public ModelMapper mapper(){
         return new ModelMapper();
     }
 
 
-    @Bean // To override the spring encoded password we use PasswordEncoder implementation class
+
+    /*
+     * · Spring always accepts encoded password
+     * · BCryptPasswordEncoder class is implemented from PasswordEncoder Interface
+     *
+     */
+    @Bean // To override the spring encoded password
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }

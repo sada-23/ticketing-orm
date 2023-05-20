@@ -9,6 +9,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/*
+ * ✨ Mapping User Entity to Spring User Details
+ * · To authentication and authorization on the UI we have to use SpringDetails methods. To do that we create UserPrincipal
+ *   class converts Entity user details to Spring user details
+ *
+ *
+ */
+
 public class UserPrincipal implements UserDetails {
 
     private User user; // we need to access to user properties
@@ -54,5 +62,9 @@ public class UserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.user.isEnabled();
+    }
+
+    public Long getId(){
+        return this.user.getId();
     }
 }

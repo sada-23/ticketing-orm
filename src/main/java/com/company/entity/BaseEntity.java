@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @MappedSuperclass
+@EntityListeners(BaseEntityListener.class)
 public class BaseEntity {
 
     /*
@@ -22,30 +23,17 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,updatable = false) // to prevent overridden "insertDateTime", "insertUserId" that becomes null
-    private LocalDateTime insertDateTime;
+    public LocalDateTime insertDateTime;
     @Column(nullable = false,updatable = false)
-    private Long insertUserId;
+    public Long insertUserId;
     @Column(nullable = false)
-    private LocalDateTime lastUpdateDateTime;
+    public LocalDateTime lastUpdateDateTime;
     @Column(nullable = false)
-    private Long lastUpdateUserId;
+    public Long lastUpdateUserId;
 
     // flag the data if deleted from UI but still available on DB
     private Boolean isDeleted = false; // @Where(clause = "is_deleted=false")
 
 
-    @PrePersist // whenever we save new data on DB this method will be executed
-    public void onePrePersist(){ // initializing the fields
-        this.insertDateTime =  LocalDateTime.now();
-        this.lastUpdateDateTime = LocalDateTime.now();
-        this.insertUserId = 1L;
-        this.lastUpdateUserId = 1L;
-    }
-
-    @PreUpdate
-    public void onePreUpdate(){ // this method will update lastUpdateDateTime and lastUpdateUserId
-        this.lastUpdateDateTime = LocalDateTime.now();
-        this.lastUpdateUserId = 1L;
-    }
 
 }

@@ -18,7 +18,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {// this method will run automatically
 
         User user = userRepository.findByUserName(username);
 
@@ -26,6 +26,6 @@ public class SecurityServiceImpl implements SecurityService {
             throw  new UsernameNotFoundException("This user does not exists");
         }
 
-        return new UserPrincipal(user);
+        return new UserPrincipal(user); // UserPrincipal() is already mapped Entity User to Spring User.
     }
 }
